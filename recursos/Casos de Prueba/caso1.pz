@@ -1,10 +1,10 @@
-@modelo "claude-sonnet-5"
+@'modelo "claude-sonnet-5"
 @rol "analista financiero"
 @formato "json"
 
 // Agente que evalua reportes financieros de una empresa
 AGENTE contador {
-    contexto = "Eres un analista financiero experto en balances"
+    contexto = Eres un analista financiero experto en balances"
     variable balance = CARGAR("balance2026.csv")
     PREGUNTAR "Cual es el margen de ganancia?" SOBRE balance -> margen
     GENERAR reporte DESDE "resumen ejecutivo de " + margen -> informe
@@ -12,3 +12,4 @@ AGENTE contador {
 
 EJECUTAR contador
 EXPORTAR margen, informe
+800.0
