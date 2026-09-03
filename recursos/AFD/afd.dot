@@ -8,7 +8,6 @@ digraph AFD_PromptZal {
 
     q0 [shape=circle];
 
-    // --- Rama: simbolo suelto ---
     q1 [shape=doublecircle, label="q1\nSIMBOLO"];
     q0 -> q1 [label="="];
     q0 -> q1 [label="+"];
@@ -18,7 +17,6 @@ digraph AFD_PromptZal {
     q0 -> q1 [label=")"];
     q0 -> q1 [label=","];
 
-    // --- Rama: conector flecha ---
     q2 [shape=circle, label="q2\ndecidiendo"];
     q3 [shape=doublecircle, label="q3\nCONECTOR"];
     q4 [shape=circle, style=filled, fillcolor=red, label="q4\nERROR"];
@@ -26,7 +24,6 @@ digraph AFD_PromptZal {
     q2 -> q3 [label=">"];
     q2 -> q4 [label="otro"];
 
-    // --- Rama: numero (entero / decimal) ---
     q5 [shape=doublecircle, label="q5\nENTERO"];
     q6 [shape=circle, label="q6\ntransito"];
     q7 [shape=doublecircle, label="q7\nDECIMAL"];
@@ -36,7 +33,6 @@ digraph AFD_PromptZal {
     q6 -> q7 [label="digito"];
     q7 -> q7 [label="digito"];
 
-    // --- Rama: cadena ---
     q8 [shape=circle, label="q8\nacumulando"];
     q9 [shape=doublecircle, label="q9\nCADENA"];
     q10 [shape=circle, style=filled, fillcolor=red, label="q10\nERROR"];
@@ -45,7 +41,6 @@ digraph AFD_PromptZal {
     q8 -> q9 [label="\""];
     q8 -> q10 [label="salto de linea"];
 
-    // --- Rama: directiva ---
     q11 [shape=circle, label="q11\nacumulando"];
     q12 [shape=doublecircle, label="q12\nDIRECTIVA"];
     q13 [shape=circle, style=filled, fillcolor=red, label="q13\nERROR"];
@@ -54,7 +49,6 @@ digraph AFD_PromptZal {
     q11 -> q12 [label="valida"];
     q11 -> q13 [label="no valida"];
 
-    // --- Rama: comentario (linea y bloque comparten el punto de decision) ---
     q14 [shape=circle, label="q14\ndecidiendo"];
     q15 [shape=circle, label="q15\nmodo linea"];
     q16 [shape=doublecircle, style=filled, fillcolor=lightblue, label="q16\nsin token"];
