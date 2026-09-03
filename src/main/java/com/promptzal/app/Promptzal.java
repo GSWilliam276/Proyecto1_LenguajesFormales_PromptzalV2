@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.promtzal.app;
+package com.promptzal.app;
 
+import com.promptzal.generadores.GeneradorReporte;
+import com.promptzal.logica.AnalizadorLexico;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
