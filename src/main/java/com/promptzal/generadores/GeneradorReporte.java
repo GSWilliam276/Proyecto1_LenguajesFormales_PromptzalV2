@@ -86,4 +86,55 @@ public class GeneradorReporte {
             return false;
         }
     }
+    
+    private static final String[] TIPOS_TOKEN = {
+        "IDENTIFICADOR", "PALABRA_RESERVADA", "COMANDO_IA", "CONECTOR",
+        "DIRECTIVA", "CADENA", "ENTERO", "DECIMAL", "OPERADOR", "DELIMITADOR"
+    };
+
+    public boolean generarReporteEstadisticas(List<Token> tokens, List<ErrorLexico> errores, String rutaSalida) {
+        int totalTokens = tokens.size();
+        int totalErrores = errores.size();
+
+        int totalLineas = 0;
+        for (Token t : tokens) {
+            if (t.getFila() > totalLineas) {
+            totalLineas = t.getFila();
+            }
+        }
+
+        StringBuilder html = new StringBuilder();
+        html.append("<html>\n<head>\n");
+        html.append("<style>\n");
+        html.append("body { font-family: Arial, sans-serif; }\n");
+        html.append("h1 { color: #1A5276; text-align: center; }\n");
+        html.append("table { width: 60%; margin: auto; border-collapse: collapse; }\n");
+        html.append("th { background-color: #A9DFBF; padding: 8px; }\n");
+        html.append("td { padding: 8px; border-bottom: 1px solid #ddd; text-align: center; }\n");
+        html.append("</style>\n</head>\n<body>\n");
+        html.append("<h1>Reporte de Estadisticas - PromptZal</h1>\n");
+
+        html.append("<table>\n");
+        html.append("<tr><th>Metrica</th><th>Valor</th></tr>\n");
+        html.append("<tr><td>Total de tokens</td><td>").append(totalTokens).append("</td></tr>\n");
+        html.append("<tr><td>Total de lineas</td><td>").append(totalLineas).append("</td></tr>\n");
+        html.append("<tr><td>Total de errores</td><td>").append(totalErrores).append("</td></tr>\n");
+        html.append("</table>\n<br>\n");
+
+        html.append("<table>\n");
+        html.append("<tr><th>Tipo de token</th><th>Frecuencia</th></tr>\n");
+        for (String tipo : TIPOS_TOKEN) {
+            int contador = 0;
+            for (Token t : tokens) {
+                if (t.getTipo().equals(tipo)) {
+                    contador++;
+                }
+            }
+        html.append("<tr><td>").append(tipo).append("</td><td>").append(contador).append("</td></tr>\n");
+        }
+        html.append("</table>\n");
+
+        html.append("</body>\n</html>");
+        return escribirArchivo(rutaSalida, html.toString());
+    }
 }
