@@ -18,11 +18,12 @@ public class GeneradorReporte {
         StringBuilder html = new StringBuilder();
         html.append("<html>\n<head>\n");
         html.append("<style>\n");
-        html.append("body { font-family: Arial, sans-serif; }\n");
-        html.append("h1 { color: #2E4053; text-align: center; }\n");
+        html.append("body { font-family: Consolas, monospace; background-color: #000000; color: #D97757; }\n");
+        html.append("h1 { color: #D97757; text-align: center; }\n");
         html.append("table { width: 90%; margin: auto; border-collapse: collapse; }\n");
-        html.append("th { background-color: #AED6F1; padding: 8px; }\n");
-        html.append("td { padding: 8px; border-bottom: 1px solid #ddd; text-align: center; }\n");
+        html.append("th { background-color: #D97757; color: #000000; padding: 8px; }\n");
+        html.append("td { padding: 8px; border-bottom: 1px solid #333333; text-align: center; }\n");
+        html.append("tr:nth-child(even) { background-color: #141414; }\n");
         html.append("</style>\n</head>\n<body>\n");
         html.append("<h1>Reporte de Tokens - PromptZal</h1>\n");
         html.append("<table>\n");
@@ -47,12 +48,13 @@ public class GeneradorReporte {
         StringBuilder html = new StringBuilder();
         html.append("<html>\n<head>\n");
         html.append("<style>\n");
-        html.append("body { font-family: Arial, sans-serif; }\n");
-        html.append("h1 { color: #922B21; text-align: center; }\n");
+        html.append("body { font-family: Consolas, monospace; background-color: #000000; color: #D97757; }\n");
+        html.append("h1 { color: #D97757; text-align: center; }\n");
         html.append("table { width: 90%; margin: auto; border-collapse: collapse; }\n");
-        html.append("th { background-color: #F5B7B1; padding: 8px; }\n");
-        html.append("td { padding: 8px; border-bottom: 1px solid #ddd; text-align: center; }\n");
-        html.append("p { text-align: center; font-size: 18px; color: green; }\n");
+        html.append("th { background-color: #D97757; color: #000000; padding: 8px; }\n");
+        html.append("td { padding: 8px; border-bottom: 1px solid #333333; text-align: center; }\n");
+        html.append("tr:nth-child(even) { background-color: #141414; }\n");
+        html.append("p { text-align: center; font-size: 18px; color: #4CAF50; }\n");
         html.append("</style>\n</head>\n<body>\n");
         html.append("<h1>Reporte de Errores Lexicos - PromptZal</h1>\n");
 
@@ -106,11 +108,13 @@ public class GeneradorReporte {
         StringBuilder html = new StringBuilder();
         html.append("<html>\n<head>\n");
         html.append("<style>\n");
-        html.append("body { font-family: Arial, sans-serif; }\n");
-        html.append("h1 { color: #1A5276; text-align: center; }\n");
+        html.append("body { font-family: Consolas, monospace; background-color: #000000; color: #D97757; }\n");
+        html.append("h1 { color: #D97757; text-align: center; }\n");
         html.append("table { width: 60%; margin: auto; border-collapse: collapse; }\n");
-        html.append("th { background-color: #A9DFBF; padding: 8px; }\n");
-        html.append("td { padding: 8px; border-bottom: 1px solid #ddd; text-align: center; }\n");
+        html.append("th { background-color: #D97757; color: #000000; padding: 8px; }\n");
+        html.append("td { padding: 8px; border-bottom: 1px solid #333333; text-align: center; }\n");
+        html.append("tr:nth-child(even) { background-color: #141414; }\n");
+        html.append("</style>\n");
         html.append("</style>\n</head>\n<body>\n");
         html.append("<h1>Reporte de Estadisticas - PromptZal</h1>\n");
 
