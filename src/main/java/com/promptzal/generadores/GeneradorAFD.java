@@ -7,6 +7,7 @@ package com.promptzal.generadores;
 import com.promptzal.excepciones.ExcepcionGraphvizNoDisponible;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
 /**
  *
  * @author eduar
@@ -90,6 +91,11 @@ public class GeneradorAFD {
     }
 
     public boolean generarImagen(String rutaDot, String rutaImagenSalida) throws ExcepcionGraphvizNoDisponible {
+        File archivoDot = new File(rutaDot);
+        File carpeta = archivoDot.getParentFile();
+        if (carpeta != null && !carpeta.exists()) {
+            carpeta.mkdirs();
+        }
         try (FileWriter writer = new FileWriter(rutaDot)) {
             writer.write(generarCodigoDOT());
         } catch (IOException ex) {

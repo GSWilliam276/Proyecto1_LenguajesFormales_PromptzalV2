@@ -9,6 +9,7 @@ import com.promptzal.modelo.ErrorLexico;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.io.File;
 /**
  *
  * @author eduar
@@ -80,6 +81,11 @@ public class GeneradorReporte {
     }
 
     private boolean escribirArchivo(String ruta, String contenido) {
+        File archivo = new File(ruta);
+        File carpeta = archivo.getParentFile();
+        if (carpeta != null && !carpeta.exists()) {
+            carpeta.mkdirs();
+        }
         try (FileWriter writer = new FileWriter(ruta)) {
             writer.write(contenido);
             return true;
