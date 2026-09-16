@@ -57,7 +57,7 @@ public class VentanaPrincipal extends JFrame {
         panelQuetzal.setBackground(Colores.FONDO_PRINCIPAL);
         panelQuetzal.setPreferredSize(new Dimension(700, 0));
 
-        ImageIcon iconoOriginal = new ImageIcon("src/main/resources/quetzal.png");
+        ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/quetzal.png"));
         Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(690, -1, Image.SCALE_SMOOTH);
         JLabel labelQuetzal = new JLabel(new ImageIcon(imagenEscalada));
         labelQuetzal.setHorizontalAlignment(SwingConstants.CENTER);
