@@ -9,6 +9,9 @@ import com.promptzal.modelo.ErrorLexico;
 import java.util.ArrayList;
 import java.util.List;
 /**
+ * Analizador lexico manual para PromptZal.
+ * Cada metodo esta comentado con su correspondencia exacta al AFD
+ * formal disenado en recursos/afd/afd.dot (estados q0 a q19).
  *
  * @author eduar
  */
@@ -59,6 +62,10 @@ public class AnalizadorLexico {
         posicion++;
     }
     
+    //Rama identificador / palabra reservada / comando / conector de palabra.
+    //AFD: q0 --letra--> q_id (estado de aceptacion, tipo decidido al vuelo
+    //por clasificarPalabra). El lazo q_id --letra/digito--> q_id corresponde
+    //al while de abajo.
     private void leerPalabra() {
         int filaInicio = fila;
         int columnaInicio = columna;
@@ -108,6 +115,9 @@ public class AnalizadorLexico {
         return false;
     }
     
+    //Rama cadena. AFD: q0 --"--> q8 (transito, NO aceptacion) --otro--> q8 (lazo)
+    //q8 --"--> q9 (aceptacion: token CADENA)
+    //q8 --salto de linea--> q10 (estado de error: "Cadena sin cerrar")
     private void leerCadena() {
         int filaInicio = fila;
         int columnaInicio = columna;
@@ -143,6 +153,10 @@ public class AnalizadorLexico {
         }
     }
     
+    //Rama numero (entero / decimal). AFD:
+    //q0 --digito--> q5 (aceptacion: ENTERO) --digito--> q5 (lazo)
+    //q5 --punto--> q6 (transito, NO aceptacion)
+    //q6 --digito--> q7 (aceptacion: DECIMAL) --digito--> q7 (lazo)
     private void leerNumero() {
         int filaInicio = fila;
         int columnaInicio = columna;
@@ -157,6 +171,7 @@ public class AnalizadorLexico {
                 avanzar();
             } else if (actual == '.' && !esDecimal && Character.isDigit(espiar())) {
                 //Solo se acepta el punto si aun no hay otro punto y si despues viene un digito
+                //(equivale a la transicion q5 -> q6, verificada con espiar() antes de tomarla)
                 esDecimal = true;
                 numero.append(actual);
                 avanzar();
@@ -173,6 +188,13 @@ public class AnalizadorLexico {
         listaTokens.add(token);
     }
     
+    //Rama comentario. AFD: q0 --/--> q14 (transito, decidiendo).
+    //Linea: q14 --/--> q15 (transito) --otro--> q15 (lazo) --salto de linea-->
+    //        q16 (aceptacion SIN token, celeste).
+    //Bloque: q14 --*--> q17 (transito) --otro--> q17 (lazo) --*/--> q18
+    //        (aceptacion SIN token, celeste); si el archivo termina sin
+    //        encontrar el cierre --> q19 (estado de error, se descarta el
+    //        resto del archivo por no existir limite no ambiguo posible).
     private void leerComentario() {
         int filaInicio = fila;
         int columnaInicio = columna;
@@ -206,6 +228,11 @@ public class AnalizadorLexico {
         }
     }
     
+    //Rama directiva. AFD: q0 --@--> q11 (transito) --letra/digito--> q11 (lazo)
+    //Al salir del lazo: q11 --valida--> q12 (aceptacion: token DIRECTIVA)
+    //                    q11 --no valida--> q13 (estado de error)
+    //La validacion contra {modelo, rol, formato} se resuelve "al vuelo"
+    //con esDirectivaValida(), no es una transicion por simbolo del AFD.
     private void leerDirectiva() {
         int filaInicio = fila;
         int columnaInicio = columna;
@@ -238,6 +265,10 @@ public class AnalizadorLexico {
         return contiene(directivasValidas, directiva);
     }
     
+    //Dispatcher principal: representa el estado inicial q0 del AFD completo.
+    //Cada rama de este if/else es la transicion que sale de q0 segun el
+    //primer caracter leido, delegando el resto del recorrido al metodo
+    //correspondiente (ver comentarios de cada uno para sus estados internos).
     public void analizar() {
         while (posicion < texto.length()) {
             char actual = texto.charAt(posicion);
@@ -270,6 +301,9 @@ public class AnalizadorLexico {
         }
     }
     
+    //Rama conector flecha. AFD: q0 --guion--> q2 (transito, decidiendo)
+    //q2 --mayor que--> q3 (aceptacion: token CONECTOR "->")
+    //q2 --otro caracter--> q4 (estado de error: "Caracter no reconocido")
     private void leerConectorFlecha() {
         //Maneja el caso de -, que puede ser -> o error
         int filaInicio = fila;
@@ -288,6 +322,10 @@ public class AnalizadorLexico {
         }
     }
     
+    //Rama simbolo suelto. AFD: q0 --(=,+,{,},(,),,)--> q1 (aceptacion unica,
+    //compartida por los siete simbolos). Sin lazo, sin acumulacion: la
+    //clasificacion OPERADOR/DELIMITADOR se decide al vuelo segun cual
+    //simbolo especifico disparo la transicion.
     private void leerSimboloSuelto(char simbolo) {
         //Maneja los simbolos de un solo caracter
         int filaInicio = fila;
