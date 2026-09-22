@@ -85,6 +85,11 @@ public class GeneradorAFD {
         dot.append("    q17 -> q17 [label=\"otro\"];\n");
         dot.append("    q17 -> q18 [label=\"*/\"];\n");
         dot.append("    q17 -> q19 [label=\"fin archivo\"];\n");
+        
+        // --- Rama: identificador / palabra reservada / comando / conector ---
+        dot.append("    q20 [shape=doublecircle, label=\"q20\\nID/RESERVADA\"];\n");
+        dot.append("    q0 -> q20 [label=\"letra\"];\n");
+        dot.append("    q20 -> q20 [label=\"letra/digito\"];\n\n");
 
         dot.append("}\n");
         return dot.toString();

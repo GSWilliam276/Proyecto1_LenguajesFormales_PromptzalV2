@@ -63,4 +63,8 @@ digraph AFD_PromptZal {
     q17 -> q17 [label="otro"];
     q17 -> q18 [label="*/"];
     q17 -> q19 [label="fin archivo"];
+    q20 [shape=doublecircle, label="q20\nID/RESERVADA"];
+    q0 -> q20 [label="letra"];
+    q20 -> q20 [label="letra/digito"];
+
 }
